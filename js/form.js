@@ -5,6 +5,10 @@ var uploadFormCancel = document.querySelector('.upload-form-cancel');
 var filter = document.querySelector('.upload-effect-controls');
 var imageFilter = document.querySelector('.effect-image-preview');
 var uploadForm = document.querySelector('.upload-form');
+var uploadResizeControl = document.querySelector('.upload-resize-controls-value');
+var buttonDec = document.querySelector('.upload-resize-controls-button-dec');
+var buttonInt = document.querySelector('.upload-resize-controls-button-inc');
+var imagePreview = document.querySelector('.effect-image-preview');
 
 var showImageLoader = function () {
   uploadOverplay.classList.add('hidden');
@@ -43,8 +47,36 @@ var addFilterImage = function (e) {
   }
 };
 
+var resizeControl = function (e) {
+  let valueProcent = uploadResizeControl.value;
+  if (parseInt(valueProcent) > 25) {
+    let a = parseInt(valueProcent)-25;
+    uploadResizeControl.value = a+'%';
+    console.log(valueProcent);
+    imagePreview.style.transform = `scale(0.${a})`;
+  }
+}
+
+var resizeControlInt = function (e) {
+  let valueProcent = uploadResizeControl.value;
+  if (parseInt(valueProcent) < 100) {
+    let a = parseInt(valueProcent)+25;
+    uploadResizeControl.value = a+'%';
+    console.log(valueProcent);
+    imagePreview.style.transform = `scale(1)`;
+  }
+}
+
 downloadFile.addEventListener('change', showCroppForm);
 uploadFormCancel.addEventListener('click', showImageLoader);
 uploadForm.addEventListener('click', function (e) {
   addFilterImage(event);
+});
+
+
+buttonInt.addEventListener('click', function (e) {
+  resizeControlInt(e.target)
+})
+buttonDec.addEventListener('click', function (e) {
+  resizeControl(e.target)
 });
