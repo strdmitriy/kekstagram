@@ -24,27 +24,26 @@ const showCroppForm = () => {
 
 const deleteClass = function () {
   const classListing = imageFilter.classList;
-  for (const i = 0; i < classListing.length; i++) {
+  for (let i = 0; i < classListing.length; i++) {
     imageFilter.classList.remove(classListing[i]);
   }
 };
 
 const addElementClass = function (node) {
   const elementSelect = imageFilter.classList;
-  for (const i = 0; i <= elementSelect.length; i++) {
-    if(i === 1) {
+  for (let i = 0; i <= elementSelect.length; i++) {
+    if (i === 1) {
       elementSelect.add('effect-'+node);
     } else {
-      elementSelect.remove(elementSelect[2]);
+      elementSelect.remove(elementSelect[1]);
       elementSelect.add('effect-'+node);
     }
   }
 };
 
 const addFilterImage = function (e) {
-  // кроссбраузерная запись события
   const target = e && e.target || event.srcElement;
-  if(target.checked) {
+  if (target.checked) {
     addElementClass(target.value);
   }
 };
@@ -77,7 +76,7 @@ const resizeControlInt = function (e) {
 downloadFile.addEventListener('change', showCroppForm);
 uploadFormCancel.addEventListener('click', showImageLoader);
 uploadForm.addEventListener('click', function (e) {
-  addFilterImage(event);
+  addFilterImage(e.target);
 });
 
 
