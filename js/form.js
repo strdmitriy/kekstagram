@@ -1,35 +1,37 @@
-var downloadFile = document.querySelector('#upload-file');
-var uploadOverplay = document.querySelector('.upload-overlay');
-var uploadImage = document.querySelector('.upload-image');
-var uploadFormCancel = document.querySelector('.upload-form-cancel');
-var filter = document.querySelector('.upload-effect-controls');
-var imageFilter = document.querySelector('.effect-image-preview');
-var uploadForm = document.querySelector('.upload-form');
-var uploadResizeControl = document.querySelector('.upload-resize-controls-value');
-var buttonDec = document.querySelector('.upload-resize-controls-button-dec');
-var buttonInt = document.querySelector('.upload-resize-controls-button-inc');
-var imagePreview = document.querySelector('.effect-image-preview');
+const downloadFile = document.querySelector('#upload-file');
+const uploadOverplay = document.querySelector('.upload-overlay');
+const uploadImage = document.querySelector('.upload-image');
+const uploadFormCancel = document.querySelector('.upload-form-cancel');
+const filter = document.querySelector('.upload-effect-controls');
+const imageFilter = document.querySelector('.effect-image-preview');
+const uploadForm = document.querySelector('.upload-form');
+const uploadResizeControl = document.querySelector('.upload-resize-controls-value');
+const buttonDec = document.querySelector('.upload-resize-controls-button-dec');
+const buttonInt = document.querySelector('.upload-resize-controls-button-inc');
+const imagePreview = document.querySelector('.effect-image-preview');
 
-var showImageLoader = function () {
+
+const showImageLoader = () => {
   uploadOverplay.classList.add('hidden');
   uploadImage.classList.remove('hidden');
 };
 
-var showCroppForm = function () {
+
+const showCroppForm = () => {
   uploadOverplay.classList.remove('hidden');
   uploadImage.classList.add('hidden');
 };
 
-var deleteClass = function () {
-  var classListing = imageFilter.classList;
-  for (var i = 0; i < classListing.length; i++) {
+const deleteClass = function () {
+  const classListing = imageFilter.classList;
+  for (const i = 0; i < classListing.length; i++) {
     imageFilter.classList.remove(classListing[i]);
   }
 };
 
-var addElementClass = function (node) {
-  var elementSelect = imageFilter.classList;
-  for (var i = 0; i <= elementSelect.length; i++) {
+const addElementClass = function (node) {
+  const elementSelect = imageFilter.classList;
+  for (const i = 0; i <= elementSelect.length; i++) {
     if(i === 1) {
       elementSelect.add('effect-'+node);
     } else {
@@ -39,15 +41,15 @@ var addElementClass = function (node) {
   }
 };
 
-var addFilterImage = function (e) {
+const addFilterImage = function (e) {
   // кроссбраузерная запись события
-  var target = e && e.target || event.srcElement;
+  const target = e && e.target || event.srcElement;
   if(target.checked) {
     addElementClass(target.value);
   }
 };
 
-var resizeControl = function (e) {
+const resizeControl = function (e) {
   let valueProcent = uploadResizeControl.value;
   if (parseInt(valueProcent) > 25) {
     let a = parseInt(valueProcent)-25;
@@ -57,13 +59,18 @@ var resizeControl = function (e) {
   }
 }
 
-var resizeControlInt = function (e) {
+const resizeControlInt = function (e) {
   let valueProcent = uploadResizeControl.value;
-  if (parseInt(valueProcent) < 100) {
+  if (parseInt(valueProcent) < 75) {
     let a = parseInt(valueProcent)+25;
     uploadResizeControl.value = a+'%';
     console.log(valueProcent);
-    imagePreview.style.transform = `scale(1)`;
+    imagePreview.style.transform = `scale(0.${a})`;
+  } else if (parseInt(valueProcent) === 75) {
+    let a = parseInt(valueProcent)+25;
+    uploadResizeControl.value = a+'%';
+    console.log(valueProcent);
+    imagePreview.style.transform = 'scale(1)';
   }
 }
 
